@@ -1,0 +1,40 @@
+{% extends 'layout.html' %}
+
+{% load static %}
+
+{% block title %}Sign Up | Medical HTML Template{% endblock %}
+
+{% block content %}
+
+<div class="limiter">
+    <div class="container-login100">
+        <div class="wrap-login100">
+            <form class="login100-form p-l-55 p-r-55 p-t-178" action="." method="post">
+                <span class="login100-form-title">SIGN UP</span>
+                {% csrf_token %}
+                <div>
+                    {% for field in form %}
+                        <div class="row checkout__input">
+                            <div class="col-md-4" >
+                                <p class="txt2" style="text-align:center; margin-top: 8px">{{ field.label_tag }}</p>
+                            </div>
+                            <div class="col-md-8" style="margin-bottom:16px;">
+                                <p style="margin-bottom:0px;"> {{ field }}</p>
+                                {% if field.help_text %}
+                                    <small class="smallUl">{{ field.help_text }}</small>
+                                {% endif %}
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+                <div class="row form-group">
+                    <div class="container-login100-form-btn">
+                        <button type="submit" class="login100-form-btn">CRIAR CONTA</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

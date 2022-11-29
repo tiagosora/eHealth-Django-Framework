@@ -1,0 +1,75 @@
+{% extends 'layout.html' %}
+
+{% load static %}
+
+{% block title %}Departments | Medical HTML Template{% endblock %}
+
+{% block content %}
+<div style="height: calc(100vh - 169px);">
+
+    <div style="text-align: center; margin-top:25px">
+        <div style="display: inline-block;">
+            <form action="{% url "departments/search" %}" method="POST">
+                {% csrf_token %}
+                <div class="row checkout__input">
+                    <div class="col-md-2" >
+                    </div>
+                    <div class="col-md-8">
+                        <p style="margin-bottom:0px;">{{ form }}</p>
+                    </div>
+                    <div class="col-md-2">
+                        <input style="background: #48bdc5; color: white; border-color: #48bdc5;" type="submit" value="Search">
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div style="text-align: center; margin-top:25px">
+        <div style="display: inline-block;">
+            <form action="{% url "departments/add" %}" method="POST">
+                {% csrf_token %}
+                {% for field in addform %}
+                    <div class="row checkout__input">
+                        <div class="col-md-2" >
+                            <p class="txt2" style="text-align:center; margin-top: 8px">{{ field.label_tag }}</p>
+                        </div>
+                        <div class="col-md-8">
+                            <p style="margin-bottom:0px;">{{ field }}</p>
+                        </div>
+                        <div class="col-md-2">
+                            <input style="background: #48bdc5; color: white; border-color: #48bdc5;" type="submit" value="Add">
+                        </div>
+                    </div>
+                {% endfor %}
+                    
+            </form>
+        </div>
+    </div>
+    
+    <table class="styled-table" style="min-width: 30%;">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Delete</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for department in departments %}
+            <tr>
+                <td>{{ department.id }}</td>
+                <td>{{ department.name }}</td>
+                <td>
+                    <form id="RemoveForm{{ department.id }}" action="{% url "departments/delete" %}" method="POST">
+                        <input type="hidden" value="{{ department.id }}" name="id">
+                        {% csrf_token %}
+                    <a class="nav-link" href="javascript:document.getElementById('RemoveForm{{ department.id }}').submit()"><i class="fa fa-trash" aria-hidden="true"></i></form></i></a>
+                </td>
+            </tr>
+            <!-- and so on... -->
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+{% endblock %}
